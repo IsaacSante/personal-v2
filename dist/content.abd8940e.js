@@ -7300,9 +7300,9 @@ var projectLocation, record;
 var cursor = (0, _cursorDot.default)({
   diameter: 60,
   easing: 4,
-  background: '#fff'
+  background: "#fff"
 });
-cursor.classList.add('cursor-class');
+cursor.classList.add("cursor-class");
 var blackHidder = document.getElementById("black");
 
 var Airtable = require("airtable");
@@ -7313,8 +7313,8 @@ function hideSpinner() {
 
 var base = new Airtable({
   apiKey: "keyMKnZBFsdFtC0UX"
-}).base('appvMjgA3Di00eDev');
-base('Work').select({
+}).base("appvMjgA3Di00eDev");
+base("Work").select({
   view: "Grid view"
 }).eachPage(function page(records) {
   var searchParam = document.location.search;
@@ -7326,9 +7326,8 @@ base('Work').select({
     return x.fields.Slug === record[0].fields.Slug;
   });
   record = record[0].fields;
-  hideSpinner(); // document.body.style.backgroundColor = record.backgroundColor
-
-  document.body.style.backgroundImage = 'linear-gradient(' + record.backgroundColor + ', #141E30)';
+  hideSpinner();
+  document.body.style.backgroundColor = record.backgroundColor;
   createInterface(record, records);
 }, function done(err) {
   if (err) {
@@ -7344,7 +7343,7 @@ function createInterface(record, records) {
   for (var i = 0; i < links.length; i++) {
     if (links[i].innerHTML === record["Project Name"]) {
       found = links[i];
-      found.style.color = 'white';
+      found.style.color = "white";
     }
   }
 
@@ -7352,6 +7351,8 @@ function createInterface(record, records) {
   var Pyear = document.getElementById("year");
   var Psub = document.getElementById("Subtitle");
   var Pdesc = document.getElementById("Description");
+  var PdescOne = document.getElementById("Description-1");
+  var PdescTwo = document.getElementById("Description-2");
   var Prole = document.getElementById("Role");
   var Pproccess = document.getElementById("extra-info");
   var PfinalProjectSrc = document.getElementById("live-link");
@@ -7368,49 +7369,80 @@ function createInterface(record, records) {
   Pproccess.innerHTML = record.Process;
   var techLength = record.Technology.length;
 
+  if (record.DescExtraOne) {
+    var txtNodeOne = document.createElement("P");
+    txtNodeOne.innerHTML = record.DescExtraOne;
+    txtNodeOne.classList.add("d");
+    Pdesc.after(txtNodeOne);
+
+    if (record.DescExtraTwo) {
+      var txtNodeTwo = document.createElement("P");
+      txtNodeTwo.innerHTML = record.DescExtraTwo;
+      txtNodeTwo.classList.add("d");
+      txtNodeTwo.classList.add("quote");
+      txtNodeOne.after(txtNodeTwo);
+
+      if (record.DescExtraThree) {
+        var txtNodeThree = document.createElement("P");
+        txtNodeThree.innerHTML = record.DescExtraThree;
+        txtNodeThree.classList.add("d");
+        txtNodeThree.classList.add("quote");
+        txtNodeTwo.after(txtNodeThree);
+
+        if (record.DescExtraFour) {
+          var txtNodeFour = document.createElement("P");
+          txtNodeFour.innerHTML = record.DescExtraFour;
+          txtNodeFour.classList.add("d");
+          txtNodeFour.classList.add("quote");
+          txtNodeThree.after(txtNodeFour);
+        }
+      }
+    }
+  }
+
   for (i = 0; i < techLength; i++) {
     var txtNode = document.createElement("P");
-    txtNode.innerHTML = record.Technology[i] + ' /';
+    txtNode.innerHTML = record.Technology[i];
     document.getElementById("tech-stack").appendChild(txtNode);
   }
 
   if (record.viz) {
-    var vizLink = document.createElement('iframe');
+    var vizLink = document.createElement("iframe");
     vizLink.src = record.viz;
-    document.getElementById('img-handler').appendChild(vizLink);
+    document.getElementById("img-handler").appendChild(vizLink);
     vizLink.classList.add("data-viz");
   }
 
   var imgLength = record.Img1.length;
 
   for (i = 0; i < imgLength; i++) {
-    var img = document.createElement('img');
+    var img = document.createElement("img");
     img.src = record.Img1[i].url;
-    document.getElementById('img-handler').appendChild(img);
+    document.getElementById("img-handler").appendChild(img);
   }
 
   if (record.yt) {
-    var targetWidth = document.getElementById('img-handler').offsetWidth;
-    var vidLink1 = document.createElement('iframe');
+    var targetWidth = document.getElementById("img-handler").offsetWidth;
+    var vidLink1 = document.createElement("iframe");
     vidLink1.width = targetWidth;
     vidLink1.height = targetWidth * 0.5625;
     vidLink1.src = record.yt;
-    document.getElementById('img-handler').appendChild(vidLink1);
-    vidLink1.setAttribute('allowFullScreen', '');
+    document.getElementById("img-handler").appendChild(vidLink1);
+    vidLink1.setAttribute("allowFullScreen", "");
   }
 
   if (record["Extra Links"]) {
-    var targetWidth = document.getElementById('img-handler').offsetWidth;
-    var vidLink = document.createElement('iframe');
+    var targetWidth = document.getElementById("img-handler").offsetWidth;
+    var vidLink = document.createElement("iframe");
     vidLink.width = targetWidth;
     vidLink.height = targetWidth * 0.5625;
     vidLink.src = record["Extra Links"];
-    document.getElementById('img-handler').appendChild(vidLink);
-    vidLink.setAttribute('allowFullScreen', '');
+    document.getElementById("img-handler").appendChild(vidLink);
+    vidLink.setAttribute("allowFullScreen", "");
   }
 
-  var nextProjectBtn = document.getElementById('nxt-project');
-  var nextProjectBtnMob = document.getElementById('nxt-project-mob');
+  var nextProjectBtn = document.getElementById("nxt-project");
+  var nextProjectBtnMob = document.getElementById("nxt-project-mob");
   nextProjectBtn.addEventListener("click", function () {
     projectLocation = (projectLocation + 1) % records.length;
 
@@ -7418,7 +7450,7 @@ function createInterface(record, records) {
       projectLocation = 1;
     }
 
-    var nextProjectHref = 'content.html?' + records[projectLocation].fields.Slug;
+    var nextProjectHref = "content.html?" + records[projectLocation].fields.Slug;
     console.log(nextProjectHref);
     nextProjectSrc.href = nextProjectHref;
   });
@@ -7429,19 +7461,19 @@ function createInterface(record, records) {
       projectLocation = 1;
     }
 
-    var nextProjectHrefMob = 'content.html?' + records[projectLocation].fields.Slug;
+    var nextProjectHrefMob = "content.html?" + records[projectLocation].fields.Slug;
     nextProjectSrcMob.href = nextProjectHrefMob;
     console.log(nextProjectSrcMob.href);
   });
-  var backwards = document.getElementById('back-project');
-  var backwardsMob = document.getElementById('back-project-mob');
+  var backwards = document.getElementById("back-project");
+  var backwardsMob = document.getElementById("back-project-mob");
   backwards.addEventListener("click", function () {
     if (projectLocation == 1) {
       projectLocation = records.length;
     }
 
     projectLocation = (projectLocation - 1) % records.length;
-    var backProjectHref = 'content.html?' + records[projectLocation].fields.Slug;
+    var backProjectHref = "content.html?" + records[projectLocation].fields.Slug;
     backProjectSrc.href = backProjectHref;
   });
   backwardsMob.addEventListener("click", function () {
@@ -7450,7 +7482,7 @@ function createInterface(record, records) {
     }
 
     projectLocation = (projectLocation - 1) % records.length;
-    var backProjectHrefMob = 'content.html?' + records[projectLocation].fields.Slug;
+    var backProjectHrefMob = "content.html?" + records[projectLocation].fields.Slug;
     backProjectSrcMob.href = backProjectHrefMob;
     console.log(backProjectSrcMob.href);
   });
@@ -7483,7 +7515,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50217" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53403" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

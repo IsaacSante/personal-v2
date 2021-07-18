@@ -5,5 +5,5 @@
     uniform vec2 u_resolution;
     void main() {
     vec2 uv = gl_FragCoord.xy / u_resolution;
-        gl_FragColor = vec4(mix(sin(uTime * 0.8) + colorA , sin(uTime * 0.8) + colorB, vUv.x), 1.0);
+        gl_FragColor = vec4(mix(abs(uTime * 0.5) + colorA , abs(uTime * 0.5) + colorB, vUv.x + uTime), 1.0);
       }

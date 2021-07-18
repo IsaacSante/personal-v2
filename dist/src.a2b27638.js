@@ -36713,7 +36713,7 @@ module.exports = `   uniform float uTime;
     uniform vec2 u_resolution;
     void main() {
     vec2 uv = gl_FragCoord.xy / u_resolution;
-        gl_FragColor = vec4(mix(sin(uTime * 0.8) + colorA , sin(uTime * 0.8) + colorB, vUv.x), 1.0);
+        gl_FragColor = vec4(mix(abs(uTime * 0.5) + colorA , abs(uTime * 0.5) + colorB, vUv.x + uTime), 1.0);
       }`
 },{}],"src/shaders/vertex.glsl":[function(require,module,exports) {
 module.exports = `varying vec3 vUv; 
@@ -43829,7 +43829,7 @@ var Airtable = require("airtable");
 
 var base = new Airtable({
   apiKey: "keyMKnZBFsdFtC0UX"
-}).base('appvMjgA3Di00eDev');
+}).base("appvMjgA3Di00eDev");
 var btnElement = document.getElementById("next");
 var backElement = document.getElementById("back");
 var initTextSize = 0.7;
@@ -43864,14 +43864,14 @@ var uniforms, container, scene, camera, renderer, mesh, mesh2, mesh3, geometry, 
 var globalString, globalSubtitle, globalURL, sphere, bgImg;
 var enterString = "Welcome";
 var myCoolBool = false;
-var colors = ['#000000', '#A55C1B', '#485461', '#655B50', '#517FA4'];
+var colors = ["#000000", "#A55C1B", "#702963", "#097969", "#517FA4"];
 var indexColor = 0;
 var cursor = (0, _cursorDot.default)({
   diameter: 40,
   easing: 4,
-  background: '#fff'
+  background: "#fff"
 });
-cursor.classList.add('cursor-class');
+cursor.classList.add("cursor-class");
 
 function init() {
   container = document.querySelector(".container");
@@ -43884,7 +43884,7 @@ function init() {
     spinner.classList.add("hide");
   }
 
-  base('Work').select({
+  base("Work").select({
     view: "Grid view"
   }).eachPage(function page(records) {
     repoData = records;
@@ -43892,9 +43892,9 @@ function init() {
       return x.fields["Project Name"] === "Isaac Sante";
     });
     record = repoData[pIndex];
-    globalString = record.fields['Project Name'];
+    globalString = record.fields["Project Name"];
     globalSubtitle = record.fields.Subtitle;
-    globalURL = 'info.html';
+    globalURL = "info.html";
     bgImg = record.fields.Img1[0].url;
     document.getElementById("background-img").src = bgImg;
     document.getElementById("second-background-img").src = bgImg;
@@ -43942,7 +43942,7 @@ function createRenderer() {
 
 function createGeometry() {
   var loader = new _three.FontLoader();
-  loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function (font) {
+  loader.load("https://threejs.org/examples/fonts/helvetiker_regular.typeface.json", function (font) {
     geometry = new _three.TextBufferGeometry(globalString, {
       font: font,
       size: initTextSize,
@@ -43975,12 +43975,12 @@ function createGeometry() {
         }
       },
       colorA: {
-        type: 'vec3',
+        type: "vec3",
         value: new _three.Color(0x74ebd5)
       },
       colorB: {
-        type: 'vec3',
-        value: new _three.Color(0xACB6E5)
+        type: "vec3",
+        value: new _three.Color(0xacb6e5)
       }
     };
     material = new _three.ShaderMaterial({
@@ -44003,11 +44003,11 @@ function createGeometry() {
 function createDance() {
   geometryBall.center();
   var material1 = new _three.MeshBasicMaterial({
-    color: 0xFFFFFF,
+    color: 0xffffff,
     wireframe: true
   });
   sphere = new _three.Mesh(geometryBall, material1);
-  sphere.name = 'Spheres';
+  sphere.name = "Spheres";
   scene.add(sphere);
   sphere.position.z = 0.2;
   sphere.position.y = dancePos + yPosShift + kick;
@@ -44027,7 +44027,7 @@ if (btnElement) {
     scene.remove(mesh3);
     pIndex = (pIndex + 1) % repoData.length;
     record = repoData[pIndex];
-    globalString = record.fields['Project Name'];
+    globalString = record.fields["Project Name"];
     globalSubtitle = record.fields.Subtitle;
     bgImg = record.fields.Img1[0].url;
     document.getElementById("background-img").src = bgImg;
@@ -44035,10 +44035,10 @@ if (btnElement) {
 
     if (pIndex > 0) {
       enterString = "Enter";
-      globalURL = 'content.html?' + record.fields.Slug;
+      globalURL = "content.html?" + record.fields.Slug;
     } else {
       enterString = "Welcome";
-      globalURL = 'info.html';
+      globalURL = "info.html";
     }
 
     createGeometry();
@@ -44068,7 +44068,7 @@ if (backElement) {
     }
 
     record = repoData[pIndex];
-    globalString = record.fields['Project Name'];
+    globalString = record.fields["Project Name"];
     globalSubtitle = record.fields.Subtitle;
     bgImg = record.fields.Img1[0].url;
     document.getElementById("background-img").src = bgImg;
@@ -44076,10 +44076,10 @@ if (backElement) {
 
     if (pIndex > 0) {
       enterString = "Enter";
-      globalURL = 'content.html?' + record.fields.Slug;
+      globalURL = "content.html?" + record.fields.Slug;
     } else {
       enterString = "Welcome";
-      globalURL = 'info.html';
+      globalURL = "info.html";
     }
 
     createGeometry();
@@ -44094,12 +44094,12 @@ renderer.setAnimationLoop(function () {
   renderer.render(scene, camera);
 
   if (myCoolBool == true) {
-    mesh.material.uniforms.uTime.value = clock.getElapsedTime();
+    mesh.material.uniforms.uTime.value = Math.cos(clock.getElapsedTime());
   }
 
   sphere.rotation.y += 0.015;
 });
-var canvasElement = document.getElementById('container');
+var canvasElement = document.getElementById("container");
 
 if (canvasElement) {
   canvasElement.addEventListener("click", function () {
@@ -44107,7 +44107,7 @@ if (canvasElement) {
   });
 }
 
-window.addEventListener('resize', resize);
+window.addEventListener("resize", resize);
 
 function resize() {
   if (window.innerWidth < 700) {
@@ -44150,7 +44150,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50217" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53403" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
