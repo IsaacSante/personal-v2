@@ -98,6 +98,19 @@ iframe {
   position: absolute;
   top: 50%;
   filter: invert(100%);
+  animation: blink 1.5s linear infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .mobile-new-next {
@@ -867,7 +880,7 @@ svg:hover {
   }
   .mobile-new-next {
     display: inline;
-    top: 72%;
+    top: 85%;
     right: 0;
     position: absolute;
     z-index: 10000000000000000000000;
@@ -880,6 +893,19 @@ svg:hover {
     filter: invert(100%);
     margin-right: 5%;
     opacity: 50%;
+    animation: blinkmobile 1.5s linear infinite;
+  }
+
+  @keyframes blinkmobile {
+    0% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
   }
 
   .mobile-new-back {

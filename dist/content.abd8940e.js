@@ -2817,7 +2817,7 @@ function isPlainObject(value) {
 
 module.exports = isPlainObject;
 
-},{"./_baseGetTag":"node_modules/lodash/_baseGetTag.js","./_getPrototype":"node_modules/lodash/_getPrototype.js","./isObjectLike":"node_modules/lodash/isObjectLike.js"}],"node_modules/parcel-bundler/src/builtins/_empty.js":[function(require,module,exports) {
+},{"./_baseGetTag":"node_modules/lodash/_baseGetTag.js","./_getPrototype":"node_modules/lodash/_getPrototype.js","./isObjectLike":"node_modules/lodash/isObjectLike.js"}],"../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/_empty.js":[function(require,module,exports) {
 
 },{}],"node_modules/airtable/lib/fetch.js":[function(require,module,exports) {
 "use strict";
@@ -2832,7 +2832,7 @@ var node_fetch_1 = __importDefault(require("node-fetch"));
 
 module.exports = // istanbul ignore next
 typeof window === 'undefined' ? node_fetch_1.default : window.fetch.bind(window);
-},{"node-fetch":"node_modules/parcel-bundler/src/builtins/_empty.js"}],"node_modules/abortcontroller-polyfill/dist/cjs-ponyfill.js":[function(require,module,exports) {
+},{"node-fetch":"../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/_empty.js"}],"node_modules/abortcontroller-polyfill/dist/cjs-ponyfill.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -3327,7 +3327,7 @@ if (typeof window === 'undefined') {
 }
 
 module.exports = AbortController;
-},{"abort-controller":"node_modules/parcel-bundler/src/builtins/_empty.js","abortcontroller-polyfill/dist/cjs-ponyfill":"node_modules/abortcontroller-polyfill/dist/cjs-ponyfill.js"}],"node_modules/lodash/isNil.js":[function(require,module,exports) {
+},{"abort-controller":"../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/_empty.js","abortcontroller-polyfill/dist/cjs-ponyfill":"node_modules/abortcontroller-polyfill/dist/cjs-ponyfill.js"}],"node_modules/lodash/isNil.js":[function(require,module,exports) {
 /**
  * Checks if `value` is `null` or `undefined`.
  *
@@ -7487,7 +7487,7 @@ function createInterface(record, records) {
     console.log(backProjectSrcMob.href);
   });
 }
-},{"cursor-dot":"node_modules/cursor-dot/index.js","airtable":"node_modules/airtable/lib/airtable.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"cursor-dot":"node_modules/cursor-dot/index.js","airtable":"node_modules/airtable/lib/airtable.js"}],"../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -7515,7 +7515,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53403" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61780" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -7691,5 +7691,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/content.js"], null)
+},{}]},{},["../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/content.js"], null)
 //# sourceMappingURL=/content.abd8940e.js.map

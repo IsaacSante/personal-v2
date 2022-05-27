@@ -39340,7 +39340,7 @@ function isPlainObject(value) {
 
 module.exports = isPlainObject;
 
-},{"./_baseGetTag":"node_modules/lodash/_baseGetTag.js","./_getPrototype":"node_modules/lodash/_getPrototype.js","./isObjectLike":"node_modules/lodash/isObjectLike.js"}],"node_modules/parcel-bundler/src/builtins/_empty.js":[function(require,module,exports) {
+},{"./_baseGetTag":"node_modules/lodash/_baseGetTag.js","./_getPrototype":"node_modules/lodash/_getPrototype.js","./isObjectLike":"node_modules/lodash/isObjectLike.js"}],"../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/_empty.js":[function(require,module,exports) {
 
 },{}],"node_modules/airtable/lib/fetch.js":[function(require,module,exports) {
 "use strict";
@@ -39355,7 +39355,7 @@ var node_fetch_1 = __importDefault(require("node-fetch"));
 
 module.exports = // istanbul ignore next
 typeof window === 'undefined' ? node_fetch_1.default : window.fetch.bind(window);
-},{"node-fetch":"node_modules/parcel-bundler/src/builtins/_empty.js"}],"node_modules/abortcontroller-polyfill/dist/cjs-ponyfill.js":[function(require,module,exports) {
+},{"node-fetch":"../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/_empty.js"}],"node_modules/abortcontroller-polyfill/dist/cjs-ponyfill.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -39850,7 +39850,7 @@ if (typeof window === 'undefined') {
 }
 
 module.exports = AbortController;
-},{"abort-controller":"node_modules/parcel-bundler/src/builtins/_empty.js","abortcontroller-polyfill/dist/cjs-ponyfill":"node_modules/abortcontroller-polyfill/dist/cjs-ponyfill.js"}],"node_modules/lodash/isNil.js":[function(require,module,exports) {
+},{"abort-controller":"../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/_empty.js","abortcontroller-polyfill/dist/cjs-ponyfill":"node_modules/abortcontroller-polyfill/dist/cjs-ponyfill.js"}],"node_modules/lodash/isNil.js":[function(require,module,exports) {
 /**
  * Checks if `value` is `null` or `undefined`.
  *
@@ -43831,7 +43831,6 @@ var base = new Airtable({
   apiKey: "keyMKnZBFsdFtC0UX"
 }).base("appvMjgA3Di00eDev");
 var btnElement = document.getElementById("next");
-var backElement = document.getElementById("back");
 var initTextSize = 0.7;
 var initTxtSize2 = 0.16;
 var yPosShift = 0;
@@ -43842,17 +43841,16 @@ var titleTxt = 1;
 var sub = 0;
 var enterSize = 0.09;
 var geometryBall = new _three.SphereGeometry(0.5, 8, -30);
-var geometries = [new _three.SphereGeometry(0.5, 8, -30), new _three.SphereGeometry(0.5, 16, 16), new _three.BoxGeometry(0.5, 0.5, 0.5), new _three.TetrahedronGeometry(0.5), new _three.DodecahedronGeometry(0.5)];
+var geometries = [new _three.SphereGeometry(0.5, 8, -30), new _three.SphereGeometry(0.5, 16, 16), new _three.BoxGeometry(0.5, 0.5, 0.5), new _three.TetrahedronGeometry(0.5), new _three.DodecahedronGeometry(0.5), new _three.BoxGeometry(0.5, 0.5, 0.5)];
 
 if (window.innerWidth < 750) {
   btnElement = document.getElementById("next-phone");
-  backElement = document.getElementById("back-phone");
   initTextSize = 0.28;
   initTxtSize2 = 0.14;
   yPosShift = 0.8;
   kick = -0.1;
   geometryBall = new _three.SphereGeometry(0.7, 8, -30);
-  geometries = [new _three.SphereGeometry(0.7, 8, -30), new _three.SphereGeometry(0.7, 16, 16), new _three.BoxGeometry(0.7, 0.7, 0.7), new _three.TetrahedronGeometry(0.7), new _three.DodecahedronGeometry(0.7)];
+  geometries = [new _three.SphereGeometry(0.7, 8, -30), new _three.SphereGeometry(0.7, 16, 16), new _three.BoxGeometry(0.7, 0.7, 0.7), new _three.TetrahedronGeometry(0.7), new _three.DodecahedronGeometry(0.7), new _three.BoxGeometry(0.7, 0.7, 0.7)];
   dancePos = -2;
   enterTxt = -2.3;
   titleTxt = 1.5;
@@ -43864,8 +43862,7 @@ var uniforms, container, scene, camera, renderer, mesh, mesh2, mesh3, geometry, 
 var globalString, globalSubtitle, globalURL, sphere, bgImg;
 var enterString = "Welcome";
 var myCoolBool = false;
-var colors = ["#000000", "#A55C1B", "#702963", "#097969", "#517FA4"];
-var indexColor = 0;
+var colors = ["#000000", "#A55C1B", "#702963", "#097969", "#517FA4", "#141245"];
 var cursor = (0, _cursorDot.default)({
   diameter: 40,
   easing: 4,
@@ -43909,9 +43906,7 @@ function init() {
   createCamera();
   hideSpinner();
   createLights();
-  createDance(); // cursor.over(".container", {
-  //   background: "rgba(255,255,255,.1)"
-  // });
+  createDance();
 }
 
 function createCamera() {
@@ -44013,82 +44008,32 @@ function createDance() {
   sphere.position.y = dancePos + yPosShift + kick;
 }
 
-if (btnElement) {
-  btnElement.addEventListener("click", function () {
-    indexColor++;
+btnElement.addEventListener("click", function () {
+  pIndex = (pIndex + 1) % repoData.length;
+  document.getElementsByTagName("body")[0].style.backgroundColor = colors[pIndex];
+  record = repoData[pIndex];
 
-    if (indexColor > 4) {
-      indexColor = 0;
-    }
+  if (pIndex > 0) {
+    enterString = "Enter";
+    globalURL = "content.html?" + record.fields.Slug;
+  } else {
+    enterString = "Welcome";
+    globalURL = "info.html";
+  }
 
-    document.getElementsByTagName("body")[0].style.backgroundColor = colors[indexColor];
-    scene.remove(mesh);
-    scene.remove(mesh2);
-    scene.remove(mesh3);
-    pIndex = (pIndex + 1) % repoData.length;
-    record = repoData[pIndex];
-    globalString = record.fields["Project Name"];
-    globalSubtitle = record.fields.Subtitle;
-    bgImg = record.fields.Img1[0].url;
-    document.getElementById("background-img").src = bgImg;
-    document.getElementById("second-background-img").src = bgImg;
-
-    if (pIndex > 0) {
-      enterString = "Enter";
-      globalURL = "content.html?" + record.fields.Slug;
-    } else {
-      enterString = "Welcome";
-      globalURL = "info.html";
-    }
-
-    createGeometry();
-    scene.remove(sphere);
-    geometryBall = geometries[indexColor];
-    createDance();
-  });
-}
-
-if (backElement) {
-  backElement.addEventListener("click", function () {
-    if (indexColor == 0) {
-      indexColor = colors.length;
-    }
-
-    indexColor--;
-    document.getElementsByTagName("body")[0].style.backgroundColor = colors[indexColor]; // document.getElementsByTagName("body")[0].style.backgroundImage = 'linear-gradient(' + colors[indexColor] + ', #2C2C2C)'
-
-    scene.remove(mesh);
-    scene.remove(mesh2);
-    scene.remove(mesh3);
-
-    if (pIndex == 0) {
-      pIndex = repoData.length - 1;
-    } else {
-      pIndex = (pIndex - 1) % repoData.length;
-    }
-
-    record = repoData[pIndex];
-    globalString = record.fields["Project Name"];
-    globalSubtitle = record.fields.Subtitle;
-    bgImg = record.fields.Img1[0].url;
-    document.getElementById("background-img").src = bgImg;
-    document.getElementById("second-background-img").src = bgImg;
-
-    if (pIndex > 0) {
-      enterString = "Enter";
-      globalURL = "content.html?" + record.fields.Slug;
-    } else {
-      enterString = "Welcome";
-      globalURL = "info.html";
-    }
-
-    createGeometry();
-    scene.remove(sphere);
-    geometryBall = geometries[indexColor];
-    createDance();
-  });
-}
-
+  scene.remove(mesh);
+  scene.remove(mesh2);
+  scene.remove(mesh3);
+  globalString = record.fields["Project Name"];
+  globalSubtitle = record.fields.Subtitle;
+  bgImg = record.fields.Img1[0].url;
+  document.getElementById("background-img").src = bgImg;
+  document.getElementById("second-background-img").src = bgImg;
+  createGeometry();
+  scene.remove(sphere);
+  geometryBall = geometries[pIndex];
+  createDance();
+});
 init();
 renderer.setAnimationLoop(function () {
   renderer.render(scene, camera);
@@ -44122,7 +44067,7 @@ function resize() {
     renderer.setSize(container.clientWidth, container.clientHeight);
   }
 }
-},{"three":"node_modules/three/build/three.module.js","cursor-dot":"node_modules/cursor-dot/index.js","./shaders/fragment.glsl":"src/shaders/fragment.glsl","./shaders/vertex.glsl":"src/shaders/vertex.glsl","airtable":"node_modules/airtable/lib/airtable.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"three":"node_modules/three/build/three.module.js","cursor-dot":"node_modules/cursor-dot/index.js","./shaders/fragment.glsl":"src/shaders/fragment.glsl","./shaders/vertex.glsl":"src/shaders/vertex.glsl","airtable":"node_modules/airtable/lib/airtable.js"}],"../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -44150,7 +44095,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53403" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61780" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -44326,5 +44271,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/index.js"], null)
+},{}]},{},["../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/index.js"], null)
 //# sourceMappingURL=/src.a2b27638.js.map

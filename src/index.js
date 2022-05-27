@@ -26,7 +26,6 @@ var base = new Airtable({ apiKey: "keyMKnZBFsdFtC0UX" }).base(
 );
 
 let btnElement = document.getElementById("next");
-let backElement = document.getElementById("back");
 let initTextSize = 0.7;
 let initTxtSize2 = 0.16;
 let yPosShift = 0;
@@ -44,11 +43,11 @@ let geometries = [
   new BoxGeometry(0.5, 0.5, 0.5),
   new TetrahedronGeometry(0.5),
   new DodecahedronGeometry(0.5),
+  new BoxGeometry(0.5, 0.5, 0.5),
 ];
 
 if (window.innerWidth < 750) {
   btnElement = document.getElementById("next-phone");
-  backElement = document.getElementById("back-phone");
   initTextSize = 0.28;
   initTxtSize2 = 0.14;
   yPosShift = 0.8;
@@ -60,6 +59,7 @@ if (window.innerWidth < 750) {
     new BoxGeometry(0.7, 0.7, 0.7),
     new TetrahedronGeometry(0.7),
     new DodecahedronGeometry(0.7),
+    new BoxGeometry(0.7, 0.7, 0.7),
   ];
   dancePos = -2;
   enterTxt = -2.3;
@@ -88,8 +88,7 @@ let uniforms,
 let globalString, globalSubtitle, globalURL, sphere, bgImg;
 let enterString = "Welcome";
 let myCoolBool = false;
-let colors = ["#000000", "#A55C1B", "#702963", "#097969", "#517FA4"];
-var indexColor = 0;
+let colors = ["#000000", "#A55C1B", "#702963", "#097969", "#517FA4", "#141245"];
 const cursor = curDot({
   diameter: 40,
   easing: 4,
@@ -140,10 +139,6 @@ function init() {
   hideSpinner();
   createLights();
   createDance();
-
-  // cursor.over(".container", {
-  //   background: "rgba(255,255,255,.1)"
-  // });
 }
 
 function createCamera() {
@@ -235,80 +230,31 @@ function createDance() {
   sphere.position.y = dancePos + yPosShift + kick;
 }
 
-if (btnElement) {
-  btnElement.addEventListener("click", () => {
-    indexColor++;
-    if (indexColor > 4) {
-      indexColor = 0;
-    }
-    document.getElementsByTagName("body")[0].style.backgroundColor =
-      colors[indexColor];
-    scene.remove(mesh);
-    scene.remove(mesh2);
-    scene.remove(mesh3);
-    pIndex = (pIndex + 1) % repoData.length;
-    record = repoData[pIndex];
-    globalString = record.fields["Project Name"];
-    globalSubtitle = record.fields.Subtitle;
-    bgImg = record.fields.Img1[0].url;
-    document.getElementById("background-img").src = bgImg;
-    document.getElementById("second-background-img").src = bgImg;
-
-    if (pIndex > 0) {
-      enterString = "Enter";
-      globalURL = "content.html?" + record.fields.Slug;
-    } else {
-      enterString = "Welcome";
-      globalURL = "info.html";
-    }
-
-    createGeometry();
-    scene.remove(sphere);
-    geometryBall = geometries[indexColor];
-    createDance();
-  });
-}
-
-if (backElement) {
-  backElement.addEventListener("click", () => {
-    if (indexColor == 0) {
-      indexColor = colors.length;
-    }
-    indexColor--;
-
-    document.getElementsByTagName("body")[0].style.backgroundColor =
-      colors[indexColor];
-    // document.getElementsByTagName("body")[0].style.backgroundImage = 'linear-gradient(' + colors[indexColor] + ', #2C2C2C)'
-
-    scene.remove(mesh);
-    scene.remove(mesh2);
-    scene.remove(mesh3);
-
-    if (pIndex == 0) {
-      pIndex = repoData.length - 1;
-    } else {
-      pIndex = (pIndex - 1) % repoData.length;
-    }
-    record = repoData[pIndex];
-    globalString = record.fields["Project Name"];
-    globalSubtitle = record.fields.Subtitle;
-    bgImg = record.fields.Img1[0].url;
-    document.getElementById("background-img").src = bgImg;
-    document.getElementById("second-background-img").src = bgImg;
-
-    if (pIndex > 0) {
-      enterString = "Enter";
-      globalURL = "content.html?" + record.fields.Slug;
-    } else {
-      enterString = "Welcome";
-      globalURL = "info.html";
-    }
-    createGeometry();
-    scene.remove(sphere);
-    geometryBall = geometries[indexColor];
-    createDance();
-  });
-}
+btnElement.addEventListener("click", () => {
+  pIndex = (pIndex + 1) % repoData.length;
+  document.getElementsByTagName("body")[0].style.backgroundColor =
+    colors[pIndex];
+  record = repoData[pIndex];
+  if (pIndex > 0) {
+    enterString = "Enter";
+    globalURL = "content.html?" + record.fields.Slug;
+  } else {
+    enterString = "Welcome";
+    globalURL = "info.html";
+  }
+  scene.remove(mesh);
+  scene.remove(mesh2);
+  scene.remove(mesh3);
+  globalString = record.fields["Project Name"];
+  globalSubtitle = record.fields.Subtitle;
+  bgImg = record.fields.Img1[0].url;
+  document.getElementById("background-img").src = bgImg;
+  document.getElementById("second-background-img").src = bgImg;
+  createGeometry();
+  scene.remove(sphere);
+  geometryBall = geometries[pIndex];
+  createDance();
+});
 
 init();
 
