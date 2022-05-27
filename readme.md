@@ -1,9 +1,6 @@
-# Isaac's cool new website
-## To view project 
-1. Download repo
-2. Yarn install 
-3. yarn start
-4. yarn build
+# Isaac three js portfolio...
 
-#### Notes for Or
-All the requirments are still in production folder 
+#### Notes for Isaac
+
+3rd version of site
+Saved under personal-v3
